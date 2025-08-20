@@ -18,7 +18,6 @@ from abc import ABC
 from abc import abstractmethod
 from typing import Optional
 
-from ..errors.not_found_error import NotFoundError
 from .eval_case import EvalCase
 from .eval_set import EvalSet
 
@@ -31,8 +30,12 @@ class EvalSetsManager(ABC):
     """Returns an EvalSet identified by an app_name and eval_set_id."""
 
   @abstractmethod
-  def create_eval_set(self, app_name: str, eval_set_id: str):
-    """Creates an empty EvalSet given the app_name and eval_set_id."""
+  def create_eval_set(self, app_name: str, eval_set_id: str) -> EvalSet:
+    """Creates and returns an empty EvalSet given the app_name and eval_set_id.
+
+    Raises:
+      ValueError: If eval set id is not valid or an eval set already exists.
+    """
 
   @abstractmethod
   def list_eval_sets(self, app_name: str) -> list[str]:
